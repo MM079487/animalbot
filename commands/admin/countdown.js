@@ -140,9 +140,8 @@ module.exports = {
 
     function countDate(name, date) {
       const countdownDate = new Date(date)
-
-      const offset = +0
-      const dateNow = new Date(new Date().getTime() + offset * 3600 * 1000) //convert to malaysia time
+      
+      const dateNow = new Date(new Date().getTime())
       const diffTime = Math.abs(dateNow - countdownDate);
 
       if (countdownDate.getTime() < dateNow.getTime()) return false //passed time
