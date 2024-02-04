@@ -22,7 +22,6 @@
     "mongoose": "^7.0.1",
     "node-fetch": "^3.2.10",
     "openai": "^3.2.1",
-    "tiktok-video-downloader": "^1.0.4",
     "util": "^0.12.5",
     "uuid": "^9.0.0"
   },
