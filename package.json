@@ -20,7 +20,7 @@
     "images-scraper": "^6.4.1",
     "index": "^0.4.0",
     "mongoose": "^7.0.1",
-    "node-fetch": "^3.2.10",
+    "node-fetch": "^2.6.6",
     "openai": "^3.2.1",
     "util": "^0.12.5",
     "uuid": "^9.0.0"
