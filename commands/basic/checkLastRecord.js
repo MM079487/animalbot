@@ -9,7 +9,7 @@ module.exports = {
 
     const fetch = require("node-fetch")
 
-    fetch('https://e777eb1a-bd03-4bd2-9c5a-280c1f703ed6-00-95hbmw2y6pp8.global.replit.dev/data.json')
+    fetch('https://animal-bot-5hs7.onrender.com/data.json')
       .then((response) => response.json())
       .then(async data => {
         try {
