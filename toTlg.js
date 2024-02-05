@@ -8,9 +8,13 @@ module.exports = async (client, Discord) => {
         // https://api.telegram.org/bot${TOKEN}
         // -4172380255
         let txt = `__${message.author.username || "undefined" }__\n${message.content || " " }`
-        console.log(txt)
-        await fetch(`https://api.telegram.org/bot${tlg_token}/sendMessage?chat-id=${-4172380255}&text=${txt}`, {
+        await fetch(`https://api.telegram.org/bot${tlg_token}/sendMessage`, {
           method:"POST",
+          body: {
+            chat_id: -4172380255,
+            text: txt
+          }
         })
-    })
-}
+        console.log(txt)
+      })
+    }
