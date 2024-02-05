@@ -4,6 +4,7 @@ const prefix = "-"
 const fs = require("fs")
 const path = require("path")
 const logger = require("./messageLogger.js")
+const toTlg = require("./toTlg.js")
 const keepAlive = require("./server.js")
 const fetch = require("node-fetch")
 
@@ -37,6 +38,7 @@ client.on("ready", () => {
   });
 
   logger(client, Discord)
+  toTlg(client, Discord)
 })
 
 // async function getPinyin(text) {
