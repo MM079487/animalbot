@@ -1,4 +1,4 @@
-require("dotenv").config()
+// require("dotenv").config()
 const tlg_token = process.env.tlg_token
 
 module.exports = async (client, Discord) => {
