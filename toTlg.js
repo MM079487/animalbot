@@ -12,7 +12,7 @@ module.exports = async (client, Discord) => {
     if (message.author.bot) return true
     // https://api.telegram.org/bot${TOKEN}
     // -4172380255
-    let txt = `<u>${message.author.username || "undefined"}</u>\n${message.content) || " "}`
+    let txt = `<u>${message.author.username || "undefined"}</u>\n${message.content || " "}`
     if (attachments.first()) {
       console.log("ATTACHMENT FOUND")
       attachments.forEach(async att => {
