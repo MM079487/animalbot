@@ -110,7 +110,7 @@ client.on("messageCreate", async message => {
       }
 
       // Call the function to get a random insult
-      getRandomInsult()
+      // getRandomInsult()
       break;
     }
   }
