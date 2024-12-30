@@ -7,6 +7,7 @@ const logger = require("./messageLogger.js")
 const toTlg = require("./toTlg.js")
 const keepAlive = require("./server.js")
 const fetch = require("node-fetch")
+require('dotenv').config()
 
 keepAlive()
 
@@ -38,7 +39,7 @@ client.on("ready", () => {
   });
 
   logger(client, Discord)
-  toTlg(client, Discord)
+  // toTlg(client, Discord)
 })
 
 // async function getPinyin(text) {

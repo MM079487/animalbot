@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -14,14 +15,13 @@
     "ascii-table": "^0.0.9",
     "bing-translate-api": "^2.9.0",
     "discord.js": "^14.3.0",
+    "dotenv": "^16.4.7",
     "express": "^4.18.1",
     "glob": "^9.2.1",
-    "google-translate-api": "^2.3.0",
-    "images-scraper": "^6.4.1",
     "index": "^0.4.0",
     "mongoose": "^7.0.1",
     "node-fetch": "^2.6.6",
-    "openai": "^3.2.1",
+    "openai": "^4.77.0",
     "util": "^0.12.5",
     "uuid": "^9.0.0"
   },

@@ -43,12 +43,19 @@ module.exports = {
       .setPlaceholder('Select Your Countdown to Delete')
 
     if (subcommand == "check") {
+      // send error if no countdowns recorded
+      const noCountdownWarningEmbed = new EmbedBuilder()
+      .setTitle("No Countdowns Recorded!")
+      .setColor("Red")
+  
+      if(Object.keys(countdownsJson).length === 0) return await interaction.editReply({ embeds:[noCountdownWarningEmbed] })
       Object.entries(countdownsJson).forEach(([key, value]) => {
         selectCountdowns.addOptions(
           new StringSelectMenuOptionBuilder()
             .setLabel(key)
             .setValue(key.toLowerCase()),
         );
+        return;
       });
 
 
@@ -100,7 +107,15 @@ module.exports = {
         await interaction.editReply("Get out the way you are not admin!!")
       }
     } else if (subcommand == "delete") {
-      if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageChannels)) return await interaction.editReply("Get out the way you are not admin!!")
+      // send error if no countdowns recorded
+      const noCountdownWarningEmbed = new EmbedBuilder()
+      .setTitle("No Countdowns Recorded!")
+      .setColor("Red")
+  
+      if(Object.keys(countdownsJson).length === 0) return await interaction.editReply({ embeds:[noCountdownWarningEmbed] })
+
+      if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageChannels)) return await interaction.editReply("Get out you are not admin!!")
+      console.log(countdownsJson)
       Object.entries(countdownsJson).forEach(([key, value]) => {
         selectToDeleteCountdowns.addOptions(
           new StringSelectMenuOptionBuilder()
