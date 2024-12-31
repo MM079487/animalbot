@@ -48,23 +48,39 @@ client.on("ready", () => {
 //   return result.result
 // }
 
+client.cooldowns = new Discord.Collection();
+client.COOLDOWN_SECONDS = 10; // replace with desired cooldown time in seconds
+
 client.on("messageCreate", async message => {
   // if (message.guild.id == 979612810797543504) return
   const args = message.content.trim().split(/ +/g);
   ban_list = ["爸爸", "sb", "SB", "父亲", "义父", "父", "爹", "爷", "祖父"]
   if (message.author.bot) return
-  
-  if(message.content.startsWith("讲")){
-    if(args.some(r=> ban_list.includes(r))) return
-    message.reply(args.join(" ").slice(1))
-  }
 
-  if(message.content.includes("念")){
-    let str = args.join(" ")
-    const before = str.substring(0, str.indexOf('念'));
-    const after = str.substring(str.indexOf('念')+1);
+  if(message.content.includes("念") && message.content.includes("讲")) return;
+  if(message.content.includes("念") || message.content.includes("讲")){
+    if (client.cooldowns.has(message.author.id)) {
+      // cooldown not ended
+      return;
+    }else{
+      if(message.content.startsWith("讲")){
+        if(args.some(r=> ban_list.includes(r))) return
+        message.reply(args.join(" ").slice(1))
+      }else if(message.content.includes("念")){
+        let str = args.join(" ")
+        const before = str.substring(0, str.indexOf('念'));
+        const after = str.substring(str.indexOf('念')+1);
+        
+        message.reply(`${before}: ${after}`)
+      }
 
-    message.reply(`${before}: ${after}`)
+      client.cooldowns.set(message.author.id, true);
+
+      // After the time you specified, remove the cooldown
+      setTimeout(() => {
+        client.cooldowns.delete(message.author.id);
+      }, client.COOLDOWN_SECONDS * 1000);
+    }
   }
   // if (message.author.id == "724335188271955979") return
 
