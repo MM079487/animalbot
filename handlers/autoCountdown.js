@@ -49,7 +49,7 @@ function autoCountdown(client){
         .setDescription(`\`${dhm(diffTime)} left \``)
         .setColor("Random")
         
-        client.channels.cache.get("798901377090060358").send({ embeds:[embed] }) //remember to change
+        client.channels.cache.get("974494856099549207").send({ embeds:[embed] })
         sentMsg ++
     }else{
       sentMsg = 0
