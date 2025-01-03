@@ -42,13 +42,14 @@ function autoCountdown(client){
       return `${d} days ${pad(h)} hours and ${pad(m)} minutes`;
     }
     
+    console.log(dateNow.getHours())
     if(dateNow.getHours() == 0){
         const embed = new EmbedBuilder()
         .setTitle(`${key.toUpperCase()} Countdown`)
         .setDescription(`\`${dhm(diffTime)} left \``)
         .setColor("Random")
         
-        client.channels.cache.get("974494856099549207").send({ embeds:[embed] })
+        client.channels.cache.get("798901377090060358").send({ embeds:[embed] }) //remember to change
         sentMsg ++
     }else{
       sentMsg = 0
