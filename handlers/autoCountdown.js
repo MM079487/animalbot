@@ -42,7 +42,6 @@ function autoCountdown(client){
       return `${d} days ${pad(h)} hours and ${pad(m)} minutes`;
     }
     
-    console.log(dateNow.getHours())
     if(dateNow.getHours() == 0){
         const embed = new EmbedBuilder()
         .setTitle(`${key.toUpperCase()} Countdown`)
