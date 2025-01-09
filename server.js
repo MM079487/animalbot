@@ -6,7 +6,7 @@ app.use(express.static(__dirname + '/website'));
 
 
 function postTime(msg){
-    logText += `<br>${new Date().toLocaleString()} - ${msg}`;
+    logText += `<br>${new Date().toLocaleString()} UTC - ${msg}`;
 }
 
 app.get("/logs", function(req, res) {
@@ -17,7 +17,7 @@ app.get("/logs", function(req, res) {
         logText = `
         <u style="font-size:60px;">BOT LOG</u>
         <div style="font-size:30px">
-        <br>${new Date().toLocaleString()} - Bot start
+        <br>${new Date().toLocaleString()} UTC - Bot start
         `
         res.send(logText)
     }
