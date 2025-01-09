@@ -1,9 +1,9 @@
 const { EmbedBuilder } = require("discord.js")
 const fs = require("fs")
+const { postTime } = require("../server.js")
 
 function autoCountdown(client){
   let sentMsg = 0;
-  const offset = +8
   setInterval(function() {
     let rawdata = fs.readFileSync('countdowns.json');
     let countdownsJson = JSON.parse(rawdata);
@@ -12,7 +12,7 @@ function autoCountdown(client){
     
     Object.entries(countdownsJson).forEach(([key, value]) => {
     const targetDate = new Date(value.date)
-    const dateNow = new Date( new Date().getTime() + offset * 3600 * 1000)
+    const dateNow = new Date();
     const diffTime = Math.abs(dateNow - targetDate);
 
     if (targetDate.getTime() < dateNow.getTime()){ //passed time
@@ -47,8 +47,10 @@ function autoCountdown(client){
         .setTitle(`${key.toUpperCase()} Countdown`)
         .setDescription(`\`${dhm(diffTime)} left \``)
         .setColor("Random")
-        
-        client.channels.cache.get("974494856099549207").send({ embeds:[embed] })
+
+        client.channels.cache.get("974494856099549207").send({ embeds:[embed] });
+        postTime(`Bot sent countdown message`);
+
         sentMsg ++
     }else{
       sentMsg = 0

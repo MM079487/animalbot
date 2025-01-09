@@ -5,11 +5,11 @@ const fs = require("fs")
 const path = require("path")
 const logger = require("./messageLogger.js")
 const toTlg = require("./toTlg.js")
-const keepAlive = require("./server.js")
+const { keepAlive, postTime } = require("./server.js")
 const fetch = require("node-fetch")
 require('dotenv').config()
 
-keepAlive()
+keepAlive();
 
 const Discord = require("discord.js")
 const { GatewayIntentBits, Collection, ActivityType, PermissionsBitField } = require('discord.js');
