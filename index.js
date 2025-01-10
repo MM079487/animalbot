@@ -170,7 +170,7 @@ client.on("messageCreate", async message => {
 client.login(process.env.token)
 
 function refreshWeb(data) {
-  let rawdata = fs.readFileSync('./public/website/data.json');
+  let rawdata = fs.readFileSync('./public/index/data.json');
   let parsedRecordedData = JSON.parse(rawdata);
 
   parsedRecordedData[data.time] = data //added new message
@@ -180,25 +180,25 @@ function refreshWeb(data) {
     delete parsedRecordedData[firstKey];
   }
 
-  fs.writeFile("./public/website/data.json", JSON.stringify(parsedRecordedData), (err) => {
+  fs.writeFile("./public/index/data.json", JSON.stringify(parsedRecordedData), (err) => {
     if (err) console.log(error)
   })
 
-  app.use(express.static(__dirname + '/website'));
+  app.use(express.static(__dirname + '/public/index'));
 }
 
 function deleteLast() {
-  let rawdata = fs.readFileSync('./public/website/data.json');
+  let rawdata = fs.readFileSync('./public/index/data.json');
   let parsedRecordedData = JSON.parse(rawdata);
 
   let lastKey = Object.keys(parsedRecordedData)[Object.keys(parsedRecordedData).length - 1] //remove last
   delete parsedRecordedData[lastKey]
 
-  fs.writeFile("./public/website/data.json", JSON.stringify(parsedRecordedData), (err) => {
+  fs.writeFile("./public/index/data.json", JSON.stringify(parsedRecordedData), (err) => {
     if (err) console.log(err)
   })
 
-  app.use(express.static(__dirname + '/website'));
+  app.use(express.static(__dirname + '/public/index'));
 }
 
 module.exports = { refreshWeb, deleteLast }
