@@ -1,0 +1,36 @@
+html, body {
+    background-color: rgb(53, 53, 53);
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;  /* Centers horizontally */
+    align-items: center; 
+}
+
+
+.box {
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+    color: white;
+    font-size: 150px;
+}
+
+.targetDate {
+    font-size: 60px;
+}
+
+@media only screen and (max-width: 1000px) {
+    .box {
+        font-size: 100px;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .box {
+        font-size: 50px;
+    }
+
+    .targetDate {
+        font-size: 30px;
+    }
+}
