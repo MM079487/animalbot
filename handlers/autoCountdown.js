@@ -45,7 +45,7 @@ function autoCountdown(client){
     if(dateNow.getHours() == 0){
         const embed = new EmbedBuilder()
         .setTitle(`${key.toUpperCase()} Countdown`)
-        .setDescription(`\`${dhm(diffTime)} left \``)
+        .setDescription(`\`${dhm(diffTime)} left \`\nhttps://animal-bot-5hs7.onrender.com/countdown`)
         .setColor("Random")
 
         client.channels.cache.get("974494856099549207").send({ embeds:[embed] });

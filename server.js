@@ -2,7 +2,9 @@ const express = require("express")
 const app = express()
 let logText = null;
 
-app.use(express.static(__dirname + '/website'));
+app.use(express.static(__dirname + '/public/index'));
+
+app.use("/countdown", express.static(__dirname + '/public/countdown'))
 
 
 function postTime(msg){

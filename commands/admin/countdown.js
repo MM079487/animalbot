@@ -166,7 +166,7 @@ module.exports = {
 
       const embed = new EmbedBuilder()
         .setTitle(`${name.toUpperCase()} Countdown`)
-        .setDescription(`\`${dhm(diffTime)} left \``)
+        .setDescription(`\`${dhm(diffTime)} left \`\nhttps://animal-bot-5hs7.onrender.com/countdown`)
         .setColor("Random")
 
       return embed
