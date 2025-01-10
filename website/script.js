@@ -168,7 +168,8 @@ function guildSelection() {
   }, 500);
 }
 
-guildSelection()
+// hide this temporary as we only have 1 guild now
+// guildSelection()
 
 function closeWindow(){
   guildSelectionPanel.style.display = "none";
