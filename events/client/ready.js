@@ -1,5 +1,6 @@
 const { loadCommands } = require("../../handlers/commandHandler");
 const { autoCountdown } = require("../../handlers/autoCountdown");
+const cron = require("node-cron")
 // const mongoose = require("mongoose")
 // const mongoDBURL = process.env['MongoDBURL']
 
@@ -20,8 +21,15 @@ module.exports = {
     // if (mongoose.connect) {
     //   console.log("Database ready")
     // }
+    function test(msg){
+      console.log(new Date().getMinutes())
+      console.log(msg)
+    }
 
     loadCommands(client);
-    autoCountdown(client);
+    // run autoCountdown everyday at 0:00
+    cron.schedule("0 0 * * *", function(){
+      autoCountdown(client)
+    });
   }
 }

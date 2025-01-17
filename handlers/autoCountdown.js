@@ -1,14 +1,11 @@
 const { EmbedBuilder } = require("discord.js")
 const fs = require("fs")
 const { postTime } = require("../server.js")
+require('dotenv').config()
 
-function autoCountdown(client){
-  let sentMsg = 0;
-  setInterval(function() {
+const autoCountdown = (client) => {
     let rawdata = fs.readFileSync('countdowns.json');
     let countdownsJson = JSON.parse(rawdata);
-
-    if(sentMsg >= Object.keys(countdownsJson).length) return true
     
     Object.entries(countdownsJson).forEach(([key, value]) => {
     const targetDate = new Date(value.date)
@@ -41,23 +38,14 @@ function autoCountdown(client){
       }
       return `${d} days ${pad(h)} hours and ${pad(m)} minutes`;
     }
-    
-    if(dateNow.getHours() == 0){
         const embed = new EmbedBuilder()
         .setTitle(`${key.toUpperCase()} Countdown`)
         .setDescription(`\`${dhm(diffTime)} left \`\nhttps://animal-bot-5hs7.onrender.com/countdown`)
         .setColor("Random")
 
-        client.channels.cache.get("974494856099549207").send({ embeds:[embed] });
+        client.channels.cache.get(`${process.env.channelId}`).send({ embeds:[embed] });
         postTime(`Bot sent countdown message`);
-
-        sentMsg ++
-    }else{
-      sentMsg = 0
-    }
   })
-    
-  }, 5000);
 }
 
 module.exports = { autoCountdown }
