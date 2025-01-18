@@ -12,7 +12,7 @@ require('dotenv').config()
 keepAlive();
 
 const Discord = require("discord.js")
-const { GatewayIntentBits, Collection, ActivityType, PermissionsBitField } = require('discord.js');
+const { GatewayIntentBits, Collection, ActivityType, PermissionsBitField, EmbedBuilder } = require('discord.js');
 
 const client = new Discord.Client({
   intents: [
@@ -54,6 +54,82 @@ client.COOLDOWN_SECONDS = 10; // replace with desired cooldown time in seconds
 client.on("messageCreate", async message => {
   // if (message.guild.id == 979612810797543504) return
   const args = message.content.trim().split(/ +/g);
+
+  if(message.channel.id == "1330166283278487635"){
+    if(message.content.startsWith("a+")){
+      if(args[0] == " ") return true
+
+      fs.readFile('list.json', function (err, data) {
+        var json = JSON.parse(data)
+        json.push(args.join(" ").slice(2))
+    
+        fs.writeFileSync("list.json", JSON.stringify(json))
+        let desc = ""
+
+        json.forEach((item, index) => {
+          desc += `${index+1}. ${item}\n`
+        });
+
+
+
+        const embed = new EmbedBuilder()
+        .setTitle("KL TOUR LIST")
+        .setDescription(`${desc}`)
+        .setColor("Green")
+
+        message.reply({ embeds: [embed] })
+      })
+    }else if(message.content.startsWith("a-")){
+      if(args[0] == " ") return true
+
+      fs.readFile('list.json', function (err, data) {
+        var json = JSON.parse(data)
+        let target = json.indexOf(args.join(" ").slice(2))
+        if(target !== -1){
+          json.splice(target, 1)
+        }else{
+          return message.reply("No member found!")
+        }
+    
+        fs.writeFileSync("list.json", JSON.stringify(json))
+
+        let desc = ""
+
+        json.forEach((item, index) => {
+          desc += `${index+1}. ${item}\n`
+        });
+
+
+
+        const embed = new EmbedBuilder()
+        .setTitle("KL TOUR LIST")
+        .setDescription(`${desc}`)
+        .setColor("Red")
+
+        message.reply({ embeds: [embed] })
+
+      })
+    }else if(message.content.startsWith("a*")){
+      fs.readFile('list.json', function (err, data) {
+        var json = JSON.parse(data)
+        let desc = ""
+
+        json.forEach((item, index) => {
+          desc += `${index+1}. ${item}\n`
+        });
+
+
+
+        const embed = new EmbedBuilder()
+        .setTitle("KL TOUR LIST")
+        .setDescription(`${desc}`)
+        .setColor("Green")
+
+        message.reply({ embeds: [embed] })
+    })
+    }
+  }
+
   ban_list = ["爸爸", "sb", "SB", "父亲", "义父", "父", "爹", "爷", "祖父"]
   if (message.author.bot) return
 
