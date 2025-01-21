@@ -8,7 +8,6 @@ module.exports = {
   name: "ready",
   once: true,
   async execute(client) {
-    console.log("Ready")
 
     // if(!mongoDBURL) return;
 
@@ -21,10 +20,6 @@ module.exports = {
     // if (mongoose.connect) {
     //   console.log("Database ready")
     // }
-    function test(msg){
-      console.log(new Date().getMinutes())
-      console.log(msg)
-    }
 
     loadCommands(client);
     // run autoCountdown everyday at 0:00

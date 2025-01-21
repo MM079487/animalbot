@@ -16,11 +16,11 @@ async function loadEvents(client){
 
       target[event.one ? "once" : "on"](event.name, execute);
       client.events.set(event.name, execute);
-
-      events.push({ Event: event.name, Status:"😀" });
+      
+      events.push({ Event: event.name, Status:"✅" });
     }catch (error) {
       console.log(error)
-      events.push({ Event: file.split("/").pop().slice(0, -3), Status: "😡" });
+      events.push({ Event: file.split("/").pop().slice(0, -3), Status: "❌" });
     }
   }
 
