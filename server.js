@@ -10,6 +10,8 @@ app.use(express.static(__dirname + '/public/index'));
 
 app.use("/countdown", express.static(__dirname + '/public/countdown'))
 
+app.use("/chart", express.static(__dirname + '/public/msgTrack'))
+
 app.get("/logs", function(req, res) {
     res.send(logText)
 });
