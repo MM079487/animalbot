@@ -5,12 +5,10 @@ const ctx = document.getElementById('chart');
 fetch('dailyMessageCount.json')
     .then((response) => response.json())
     .then(async data => {
-        console.log(data)
 
         const labels = Object.keys(data);
         const dataPoints = Object.values(data);
 
-        console.log(labels, dataPoints)
 
         new Chart(ctx, {
             type: 'line',
