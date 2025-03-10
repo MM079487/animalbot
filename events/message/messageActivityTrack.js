@@ -1,4 +1,6 @@
 const fs = require("fs")
+let firstAndLastMessageData = {};
+let mostRecentMessageData = {};
 
 module.exports = {
     name:"messageCreate",
@@ -20,11 +22,29 @@ module.exports = {
         // Increment message count for today
         if (!messageData[today]) {
             messageData[today] = 0;
+
+            //record first & last message of the day too!
+            //[0] means 1st msg and [1] means last msg
+
+            firstAndLastMessageData[0] = {
+                "author": message.author,
+                "content": message.content
+            }
+
+            firstAndLastMessageData[1] = mostRecentMessageData
+            console.log(firstAndLastMessageData)
+        }
+
+        mostRecentMessageData = {
+            "author": message.author,
+            "content": message.content
         }
         messageData[today] += 1;
     
         // Save to file
         fs.writeFileSync(dataFile, JSON.stringify(messageData, null, 4));
+
+        //record first & last message of the day
 
     }
   }
