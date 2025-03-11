@@ -1,5 +1,7 @@
 Chart.register(ChartDataLabels);
 
+var firstMessageBox = document.getElementById("firstMessage")
+var lastMessageBox = document.getElementById("lastMessage")
 const ctx = document.getElementById('chart');
 
 fetch('dailyMessageCount.json')
@@ -24,6 +26,7 @@ fetch('dailyMessageCount.json')
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
                     datalabels: {
                         display: true,
@@ -68,4 +71,30 @@ fetch('dailyMessageCount.json')
                 }
             }
         });
+    })
+
+fetch('/chartData')// remember to change: /chartData
+    .then((response) => response.json())
+    .then(async data => {
+        let firstData = data[0]
+        let lastData = data[1]
+
+        console.log(firstData, lastData)
+        firstMessageBox.innerHTML = `
+                <u style="font-weight: bold;">First Message Of The Day:</u>
+                <div class="authorPfp">
+                    <img id="authorPfpImg" src="${firstData.iconURL}" style="border-radius: 50%;width: 40px;">
+                    <div class="authorName">${firstData.author || "placeholder"}</div>
+                </div>
+                <div class="message">${firstData.content || "placeholder"}</div>
+        `
+
+        lastMessageBox.innerHTML = `
+        <u style="font-weight: bold;">Last Message Yesterday:</u>
+        <div class="authorPfp">
+            <img id="authorPfpImg" src="${lastData.iconURL}" style="border-radius: 50%;width: 40px;">
+            <div class="authorName">${lastData.author || "placeholder"}</div>
+        </div>
+        <div class="message">${lastData.content || "placeholder"}</div>
+`
     })

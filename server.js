@@ -60,7 +60,13 @@ setInterval(() => {
 }, 5000);
 
 app.get("/chartData", function(req, res) {
-    res.send()
+    require("./events/message/messageActivityTrack");
+
+    if(global.firstAndLastMessageData == undefined){
+        res.sendStatus(204)
+    }else{
+        res.send(global.firstAndLastMessageData)
+    }
 });
 
 function keepAlive() {

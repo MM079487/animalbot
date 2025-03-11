@@ -2,6 +2,11 @@ const fs = require("fs")
 let firstAndLastMessageData = {};
 let mostRecentMessageData = {};
 
+
+function fireExport(){
+    exports.test = "test"
+}
+
 module.exports = {
     name:"messageCreate",
     async execute(message, client){
@@ -27,16 +32,18 @@ module.exports = {
             //[0] means 1st msg and [1] means last msg
 
             firstAndLastMessageData[0] = {
-                "author": message.author,
+                "author": message.author.username,
+                "iconURL":  message.author.displayAvatarURL(),
                 "content": message.content
             }
 
             firstAndLastMessageData[1] = mostRecentMessageData
-            console.log(firstAndLastMessageData)
+            global.firstAndLastMessageData = firstAndLastMessageData
         }
 
         mostRecentMessageData = {
-            "author": message.author,
+            "author": message.author.username,
+            "iconURL":  message.author.displayAvatarURL(),
             "content": message.content
         }
         messageData[today] += 1;
@@ -46,5 +53,6 @@ module.exports = {
 
         //record first & last message of the day
 
-    }
+    },
+
   }
