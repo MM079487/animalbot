@@ -96,7 +96,7 @@ fetch('/chartData')// remember to change: /chartData
         `
 
         lastMessageBox.innerHTML = `
-                <u style="font-weight: bold;">First Message</u>
+                <u style="font-weight: bold;">Last Message</u>
                 <div class="insideBox">
                     <div class="authorPfp">
                         <img id="authorPfpImg"
