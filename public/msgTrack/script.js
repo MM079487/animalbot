@@ -79,22 +79,32 @@ fetch('/chartData')// remember to change: /chartData
         let firstData = data[0]
         let lastData = data[1]
 
+        //https://cdn.discordapp.com/avatars/724335188271955979/c7837230ad8f1dbac54e5df7e4d76571?size=1024 (my pfp for test
+
         console.log(firstData, lastData)
         firstMessageBox.innerHTML = `
-                <u style="font-weight: bold;">First Message Of The Day:</u>
-                <div class="authorPfp">
-                    <img id="authorPfpImg" src="${firstData.iconURL}" style="border-radius: 50%;width: 40px;">
-                    <div class="authorName">${firstData.author || "placeholder"}</div>
+                <u style="font-weight: bold;">First Message</u>
+                <div class="insideBox">
+                    <div class="authorPfp">
+                        <img id="authorPfpImg"
+                            src="${firstData.iconURL}"
+                            style="border-radius: 50%;width: 40px;">
+                        <div class="authorName">${firstData.author || "placeholder"}</div>
+                    </div>
+                    <div class="message">${firstData.content || "placeholder"}</div>
                 </div>
-                <div class="message">${firstData.content || "placeholder"}</div>
         `
 
         lastMessageBox.innerHTML = `
-        <u style="font-weight: bold;">Last Message Yesterday:</u>
-        <div class="authorPfp">
-            <img id="authorPfpImg" src="${lastData.iconURL}" style="border-radius: 50%;width: 40px;">
-            <div class="authorName">${lastData.author || "placeholder"}</div>
-        </div>
-        <div class="message">${lastData.content || "placeholder"}</div>
+                <u style="font-weight: bold;">First Message</u>
+                <div class="insideBox">
+                    <div class="authorPfp">
+                        <img id="authorPfpImg"
+                            src="${lastData.iconURL}"
+                            style="border-radius: 50%;width: 40px;">
+                        <div class="authorName">${lastData.author || "placeholder"}</div>
+                    </div>
+                    <div class="message">${lastData.content || "placeholder"}</div>
+                </div>
 `
     })

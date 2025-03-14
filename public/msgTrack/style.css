@@ -13,10 +13,14 @@ html, body {
     text-align: center;
     justify-content: center;
     align-items: center;
-    height: 12vh;
 }
 
-.box {
+.box u {
+    color: white;
+    font-size: 30px;
+}
+
+.insideBox {
     color: white;
     background-color: rgb(44, 47, 51);
     text-align: center;
@@ -24,16 +28,41 @@ html, body {
     padding: 10px;
     word-break: break-all;
     border-radius: 15px;
+    max-width: 700px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.insideBox:hover{
+    background-color: rgb(62, 66, 70);
+    transition: .2s;
 }
 
 .authorPfp {
-    align-items: center;
-    display: flex;
-    float: left;
-    font-weight:550;
+    font-weight:bold;
     margin: 0 10px 10px 10px;
+    height: 100%;
 }
 
-#authorPfpImg {
-    margin-right: 5px;
+.authorName {
+    font-size: 25px;
+}
+
+.message {
+    height: 100%;
+}
+
+@media only screen and (max-width: 850px) {
+    .box u {
+        font-size: 20px;
+    }
+
+    .insideBox {
+        font-size: 11px;
+    }
+
+    .authorName {
+        font-size: 15px;
+    }
 }
