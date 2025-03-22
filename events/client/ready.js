@@ -1,5 +1,6 @@
 const { loadCommands } = require("../../handlers/commandHandler");
 const { autoCountdown } = require("../../handlers/autoCountdown");
+const { postTime } = require("../../server.js")
 const cron = require("node-cron")
 // const mongoose = require("mongoose")
 // const mongoDBURL = process.env['MongoDBURL']
@@ -24,6 +25,7 @@ module.exports = {
     loadCommands(client);
     // run autoCountdown everyday at 0:00
     cron.schedule("0 0 * * *", function(){
+      postTime("cronjob triggered")
       autoCountdown(client)
     });
   }
