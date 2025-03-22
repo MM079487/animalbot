@@ -24,15 +24,10 @@ module.exports = {
 
     loadCommands(client);
     // run autoCountdown everyday at 0:00
-
-    const timeoutPromise = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error("Timeout exceeded")), 60000) // 60s timeout
-    );
-    
     cron.schedule("0 0 * * *", async function () {
       try {
         postTime("cronjob triggered");
-        await Promise.race([autoCountdown(client), timeoutPromise]);
+        autoCountdown(client)
       } catch (error) {
         console.error("Cron job error:", error);
       }
