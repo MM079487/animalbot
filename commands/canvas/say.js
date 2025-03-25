@@ -44,7 +44,7 @@ module.exports = {
         
         ctx.fillStyle = "black"
         ctx.textAlign = "center"
-        ctx.font = 'bold 30px "NotoSansSC"'
+        ctx.font = '30px "NotoSansSC"'
         ctx.fillText(messageInput, 260, 250)
         //width 375
 
