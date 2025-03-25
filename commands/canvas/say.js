@@ -20,8 +20,6 @@ module.exports = {
     const messageInput = interaction.options.getString("message")
     const avatarURL = userInput.displayAvatarURL({ extension: 'png', size: 128 });
 
-    await interaction.deferReply()
-
     registerFont("fonts/NotoSansSC-Bold.ttf", { family: "NotoSansSC"})
 
     const canvas = createCanvas(880, 480);
@@ -51,7 +49,7 @@ module.exports = {
         const buffer = canvas.toBuffer("image/png")
         const attachment = new AttachmentBuilder(buffer, { name: 'image.png' });
     
-        await interaction.editReply({ files: [attachment] })
+        await interaction.reply({ files: [attachment] })
 
   }
 }

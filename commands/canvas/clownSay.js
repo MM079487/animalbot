@@ -13,8 +13,6 @@ module.exports = {
   async execute(interaction, client) {
     const messageInput = interaction.options.getString("message")
 
-    await interaction.deferReply()
-
     registerFont("fonts/NotoSansSC-Bold.ttf", { family: "NotoSansSC"})
 
     const canvas = createCanvas(1667, 794);
@@ -32,7 +30,7 @@ module.exports = {
         const buffer = canvas.toBuffer("image/png")
         const attachment = new AttachmentBuilder(buffer, { name: 'image.png' });
     
-        await interaction.editReply({ files: [attachment] })
+        await interaction.reply({ files: [attachment] })
 
   }
 }
