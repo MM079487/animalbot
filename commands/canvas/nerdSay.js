@@ -15,7 +15,7 @@ module.exports = {
 
     await interaction.deferReply()
 
-    registerFont("fonts/NotoSansSC.ttf", { family: "NotoSansSC"})
+    registerFont("fonts/NotoSansSC-Bold.ttf", { family: "NotoSansSC"})
 
     ///880 480
     const canvas = createCanvas(680, 674);
