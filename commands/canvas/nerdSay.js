@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder, AttachmentBuilder } = require("discord.js")
-const { createCanvas, loadImage } = require("canvas")
+const { createCanvas, loadImage, registerFont } = require("canvas")
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -15,6 +15,8 @@ module.exports = {
 
     await interaction.deferReply()
 
+    registerFont("fonts/NotoSansSC.ttf", { family: "NotoSansSC"})
+
     ///880 480
     const canvas = createCanvas(680, 674);
     const ctx = canvas.getContext('2d')
@@ -25,7 +27,7 @@ module.exports = {
 
         ctx.fillStyle = "white"
         ctx.textAlign = "center"
-        ctx.font = '30px "Arial", "Microsoft YaHei", "Noto Sans SC", sans-serif'
+        ctx.font = '30px "NotoSansSC"'
         ctx.fillText(messageInput, canvas.width/2, 90)
 
         const buffer = canvas.toBuffer("image/png")
