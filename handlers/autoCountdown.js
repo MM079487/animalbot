@@ -14,11 +14,10 @@ const autoCountdown = (client) => {
 
     if (targetDate.getTime() < dateNow.getTime()){ //passed time
       delete countdownsJson[key]
-      fs.writeFile("countdowns.json", JSON.stringify(countdownsJson), (err) => {
+      fs.writeFileSync("countdowns.json", JSON.stringify(countdownsJson), (err) => {
         if (err) console.log(err)
+        console.log(`${key} deleted`)
       })
-      console.log(`${key} deleted`)
-      return true
     }
 
     function dhm(t){
