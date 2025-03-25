@@ -24,7 +24,7 @@ module.exports = {
 
         ctx.fillStyle = "black"
         ctx.textAlign = "center"
-        ctx.font = "50px"
+        ctx.font = '50px "Arial", "Microsoft YaHei", "Noto Sans SC", sans-serif'
         ctx.fillText(`\" ${messageInput} \"`, 500, canvas.height/2)
 
         const buffer = canvas.toBuffer("image/png")
