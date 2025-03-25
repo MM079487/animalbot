@@ -12,12 +12,59 @@ const autoCountdown = (client) => {
     const dateNow = new Date();
     const diffTime = Math.abs(dateNow - targetDate);
 
-    if (targetDate.getTime() < dateNow.getTime()){ //passed time
+    if (isDatePassed(targetDate)){ //passed time
       delete countdownsJson[key]
       fs.writeFileSync("countdowns.json", JSON.stringify(countdownsJson), (err) => {
         if (err) console.log(err)
         console.log(`${key} deleted`)
       })
+      return true
+    }
+
+    if(isSameDate(targetDate)){
+      const embed = new EmbedBuilder()
+      .setTitle(`Today is ${key.toUpperCase()}`)
+      .setDescription(`https://animal-bot-5hs7.onrender.com/countdown`)
+      .setColor("Red")
+      
+      client.channels.cache.get(`${process.env.channelId}`).send({ embeds:[embed] });
+      postTime(`Bot sent target countdown  message`);
+
+      delete countdownsJson[key]
+      fs.writeFileSync("countdowns.json", JSON.stringify(countdownsJson), (err) => {
+        if (err) console.log(err)
+        console.log(`${key} deleted (isSameDate triggered)`)
+      })
+
+      return true
+    }
+
+    const embed = new EmbedBuilder()
+    .setTitle(`${key.toUpperCase()} Countdown`)
+    .setDescription(`\`${dhm(diffTime)} left \`\nhttps://animal-bot-5hs7.onrender.com/countdown`)
+    .setColor("Green")
+    
+    client.channels.cache.get(`${process.env.channelId}`).send({ embeds:[embed] });
+    postTime(`Bot sent countdown message`);
+
+    function isDatePassed(date) {
+      const now = new Date();
+      
+      // Remove time part for an accurate date-only comparison
+      now.setHours(0, 0, 0, 0);
+      date.setHours(0, 0, 0, 0);
+  
+      return date < now;
+    }
+
+    function isSameDate(date) {
+      const now = new Date();
+      
+      return (
+          date.getFullYear() == now.getFullYear() &&
+          date.getMonth() == now.getMonth() &&
+          date.getDate() == now.getDate()
+      );
     }
 
     function dhm(t){
@@ -37,13 +84,6 @@ const autoCountdown = (client) => {
       }
       return `${d} days ${pad(h)} hours and ${pad(m)} minutes`;
     }
-        const embed = new EmbedBuilder()
-        .setTitle(`${key.toUpperCase()} Countdown`)
-        .setDescription(`\`${dhm(diffTime)} left \`\nhttps://animal-bot-5hs7.onrender.com/countdown`)
-        .setColor("Random")
-
-        client.channels.cache.get(`${process.env.channelId}`).send({ embeds:[embed] });
-        postTime(`Bot sent countdown message`);
   })
 }
 
