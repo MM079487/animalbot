@@ -16,6 +16,8 @@ module.exports = {
             .setRequired(true)
     ),
   async execute(interaction, client) {
+    await interaction.deferReply();
+
     const userInput = interaction.options.getUser("user")
     const messageInput = interaction.options.getString("message")
     const avatarURL = userInput.displayAvatarURL({ extension: 'png', size: 128 });
@@ -49,7 +51,7 @@ module.exports = {
         const buffer = canvas.toBuffer("image/png")
         const attachment = new AttachmentBuilder(buffer, { name: 'image.png' });
     
-        await interaction.reply({ files: [attachment] })
+        await interaction.editReply({ files: [attachment] })
 
   }
 }
