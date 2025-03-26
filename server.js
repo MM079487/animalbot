@@ -24,15 +24,15 @@ function postTime(msg) {
     logText += `<br>${new Date().toLocaleString()} - ${msg}`
 }
 
-const jsonSchema = new mongoose.Schema({ data: Object });
-const JsonModel = mongoose.models.JsonData || mongoose.model("JsonData", jsonSchema);
+const jsonSchema = new mongoose.Schema({ data: Object, timestamp: String });
+const JsonModel = mongoose.models.JsonData || mongoose.model("logs", jsonSchema);
 
 async function getJsonFromMongo() {
     await mongoose.connect(process.env.MONGO_URI);
     try {
         const data = await JsonModel.findOne().sort({ _id: -1 }); // Get the most recent entry
         mongoose.connection.close(); // Close DB connection
-        fs.writeFileSync("public/msgTrack/dailyMessageCount.json", JSON.stringify(data ? data.data : null, null, 4));
+        fs.writeFileSync("public/msgTrack/dailyMessageCount.json", JSON.stringify(data.data));
         return true // Return stored JSON
     } catch (error) {
         console.error("Error retrieving JSON from MongoDB:", error);
@@ -43,11 +43,10 @@ async function getJsonFromMongo() {
 //setup local json file, so messageActivityTrack.js can read and write new data
 getJsonFromMongo()
 
-async function replaceJsonData(json) {
+async function updateJsonData(json) {
     await mongoose.connect(process.env.MONGO_URI);
     try {
-        await JsonModel.deleteMany({}); // Delete all documents
-        const newEntry = new JsonModel({ data: json });
+        const newEntry = new JsonModel({ data: json, timestamp: new Date() });
         await newEntry.save(); // Insert new data
     } catch (error) {
         console.error("❌ Error replacing database:", error);
@@ -56,7 +55,7 @@ async function replaceJsonData(json) {
 
 //update local json file to server every 5s
 setInterval(() => {
-    replaceJsonData(JSON.parse(fs.readFileSync("public/msgTrack/dailyMessageCount.json", "utf8")))
+    updateJsonData(JSON.parse(fs.readFileSync("public/msgTrack/dailyMessageCount.json", "utf8")))
 }, 5000);
 
 app.get("/chartData", function(req, res) {
