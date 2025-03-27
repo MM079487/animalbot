@@ -22,6 +22,10 @@ module.exports = {
     const messageInput = interaction.options.getString("message")
     const avatarURL = userInput.displayAvatarURL({ extension: 'png', size: 128 });
 
+    if(userInput.id == "724335188271955979"){
+      return interaction.editReply("Error")
+    }
+
     registerFont("fonts/NotoSansSC-Bold.ttf", { family: "NotoSansSC"})
 
     const canvas = createCanvas(880, 480);
