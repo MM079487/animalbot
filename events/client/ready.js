@@ -24,6 +24,7 @@ module.exports = {
 
     loadCommands(client);
     // run autoCountdown everyday at 0:00
+
     cron.schedule("0 0 * * *", async function () {
       try {
         postTime("cronjob triggered");
