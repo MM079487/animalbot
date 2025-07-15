@@ -38,7 +38,7 @@ const autoCountdown = (client) => {
     if (isSameDate(targetDate)) {
       const embed = new EmbedBuilder()
         .setTitle(`Today is ${item.name.toUpperCase()}`)
-        .setDescription(`https://animal-bot-5hs7.onrender.com/countdown`)
+        .setDescription(`https://https://animalbot-ddkm.onrender.com/countdown`)
         .setColor("Red")
 
       client.channels.cache.get(`${process.env.channelId}`).send({ embeds: [embed] });
@@ -55,7 +55,7 @@ const autoCountdown = (client) => {
 
     const embed = new EmbedBuilder()
       .setTitle(`${item.name.toUpperCase()} Countdown`)
-      .setDescription(`\`${dhm(diffTime)} left \`\nhttps://animal-bot-5hs7.onrender.com/countdown`)
+      .setDescription(`\`${dhm(diffTime)} left \`\nhttps://https://animalbot-ddkm.onrender.com/countdown`)
       .setColor("Green")
 
     client.channels.cache.get(`${process.env.channelId}`).send({ embeds: [embed] });
