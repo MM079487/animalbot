@@ -89,13 +89,13 @@ module.exports = {
       // cooldown not ended
       return;
     }else{
-      if(message.content.startsWith("讲")){
+      if(message.content.startsWith("念")){
         if(args.some(r=> ban_list.includes(r))) return
         message.reply(args.join(" ").slice(1))
-      }else if(message.content.includes("念")){
+      }else if(message.content.includes("讲")){
         let str = args.join(" ")
-        const before = str.substring(0, str.indexOf('念'));
-        const after = str.substring(str.indexOf('念')+1);
+        const before = str.substring(0, str.indexOf('讲'));
+        const after = str.substring(str.indexOf('讲')+1);
         
         message.reply(`${before}: ${after}`)
       }
