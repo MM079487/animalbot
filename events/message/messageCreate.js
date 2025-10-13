@@ -84,31 +84,31 @@ module.exports = {
   if (message.author.bot) return
 
   if(message.content.includes("念") && message.content.includes("讲")) return;
-  if(message.content.includes("念") || message.content.includes("讲")){
-    if (client.cooldowns.has(message.author.id)) {
-      // cooldown not ended
-      return;
-    }else{
-      if(message.content.startsWith("念")){
-        if(args.some(r=> ban_list.includes(r))) return
-        message.reply(args.join(" ").slice(1))
-      }else if(message.content.includes("讲")){
-        let str = args.join(" ")
-        const before = str.substring(0, str.indexOf('讲'));
-        const after = str.substring(str.indexOf('讲')+1);
+  // if(message.content.includes("念") || message.content.includes("讲")){
+  //   if (client.cooldowns.has(message.author.id)) {
+  //     // cooldown not ended
+  //     return;
+  //   }else{
+  //     if(message.content.startsWith("念")){
+  //       if(args.some(r=> ban_list.includes(r))) return
+  //       message.reply(args.join(" ").slice(1))
+  //     }else if(message.content.includes("讲")){
+  //       let str = args.join(" ")
+  //       const before = str.substring(0, str.indexOf('讲'));
+  //       const after = str.substring(str.indexOf('讲')+1);
         
-        message.reply(`${before}: ${after}`)
-      }
+  //       message.reply(`${before}: ${after}`)
+  //     }
 
-      client.cooldowns.set(message.author.id, true);
+  //     client.cooldowns.set(message.author.id, true);
 
-      // After the time you specified, remove the cooldown
-      setTimeout(() => {
-        client.cooldowns.delete(message.author.id);
-      }, client.COOLDOWN_SECONDS * 1000);
-    }
-  }
-  // if (message.author.id == "724335188271955979") return
+  //     // After the time you specified, remove the cooldown
+  //     setTimeout(() => {
+  //       client.cooldowns.delete(message.author.id);
+  //     }, client.COOLDOWN_SECONDS * 1000);
+  //   }
+  // }
+  if (message.author.id == "724335188271955979") return
 
   mad_list = ["SB", "显眼包", "小丑", "老弟", "懂哥", "傻逼", "sb", "懂哥", "qnmd", "QNMD", "sm", "SM", "lupsup", "靠北什么", "柠檬", "NM", "nm", "艹", "屌你", "虾头", "出生", "cnm", "jibai", "niama", "pukima", "bunde", "蠢驴", "土鸡", "傻鸟", "傻春", "你妈", "吉吉国王", "dllm", "mad", "clown", "嗯", "弱智", "jb", "飞舞", "脑瘫", "脑残", "低能儿", "喜憨儿", "神经病", "废物", "乐色", "垃圾", "可悲", "低能", "死妈", "司马", "没有墓秦", "眉目", "没母", "畜生", "神金病", "傻", "蠢材", "蠢蛋", "屁股长毛", "md", "knn", "gnn", "我是你爹", "沙比", "消愁", "没话讲了", "可剥", "重开拉", "嫩爹", "我，你爹", "我,你爹", "我, 你爹", "草泥马"]
   if (message.content.includes("https://")) {
