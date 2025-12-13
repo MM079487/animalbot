@@ -1,6 +1,5 @@
 const { loadCommands } = require("../../handlers/commandHandler");
 const { autoCountdown } = require("../../handlers/autoCountdown");
-const { autoShow4DResult } = require("../../handlers/autoShow4DResult");
 const { postTime } = require("../../server.js")
 const cron = require("node-cron")
 // const mongoose = require("mongoose")
@@ -34,23 +33,5 @@ module.exports = {
         console.error("Cron job error:", error);
       }
     });
-
-    cron.schedule("1 19 * * 6", async function () { //Saturday Toto
-      try {
-        postTime("4D cronjob triggered");
-        autoShow4DResult(client);
-      } catch (error) {
-        console.error("4D Cron job error:", error);
-      }
-    })
-
-    cron.schedule("1 19 * * 7", async function () { //Sunday 4D
-      try {
-        postTime("4D cronjob triggered");
-        autoShow4DResult(client);
-      } catch (error) {
-        console.error("4D Cron job error:", error);
-      }
-    })
   }
 }
