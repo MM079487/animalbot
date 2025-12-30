@@ -32,7 +32,7 @@ module.exports = {
     const month = interaction.options.getInteger("month")
     const day = interaction.options.getInteger("day")
 
-    const url = `https://api.data.gov.my/data-catalogue/?id=births&icontains=${year}-${pad(month, 2)}-${day}@date&limit=1`
+    const url = `https://api.data.gov.my/data-catalogue/?id=births&icontains=${year}-${pad(month, 2)}-${pad(day, 2)}@date&limit=1`
     
     await interaction.deferReply()
     
