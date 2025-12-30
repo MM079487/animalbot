@@ -41,7 +41,6 @@ module.exports = {
       .then((a) => {
         try {
             const data = a[0]
-            console.log(data)
             const embed = new EmbedBuilder()
             .setTitle(`${data.date}`)
             .setDescription(`有 ***${data.births}*** 人在这天生日！`)
