@@ -8,7 +8,7 @@ const sendEarthquakeReport = (client) => {
 
     setInterval(checkAPI, 300000); //update every 5 minutes
     async function checkAPI() {
-    const data = await fetch("https://api.data.gov.my/weather/warning/earthquake/?sort=-utcdatetime&icontains=malaysia@location_original").then(r => r.json());
+    const data = await fetch("https://api.data.gov.my/weather/warning/earthquake/?sort=-utcdatetime&limit=2").then(r => r.json());
     const latest = data[0];
 
         if (latest.utcdatetime !== lastSeenTime) {
