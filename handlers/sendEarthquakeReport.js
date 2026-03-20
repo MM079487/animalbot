@@ -17,9 +17,10 @@ const sendEarthquakeReport = (client) => {
             .setTitle("地震报告")
             .setColor("Red")
             .setDescription(`
-                地点：${latest.location_original} (${latest.n_distancemas}),
-                Google Maps: https://maps.google.com/?q=${latest.lat},${latest.lon},
-                震级：${latest.magdefault},
+                地点：${latest.location_original} (${latest.n_distancemas})
+                Google Maps: https://maps.google.com/?q=${latest.lat},${latest.lon}
+                震级：${latest.magdefault}
+                震源深度：${latest.depth}
                 时间: ${latest.localdatetime}
                 `)
             client.channels.cache.get(`${process.env.channelId}`).send({ embeds: [embed] });
