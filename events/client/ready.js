@@ -24,7 +24,7 @@ module.exports = {
     // if (mongoose.connect) {
     //   console.log("Database ready")
     // }
-    loadCommands(client);
+    await loadCommands(client);
     // run autoCountdown everyday at 0:00
 
     cron.schedule("0 0 * * *", async function () {
