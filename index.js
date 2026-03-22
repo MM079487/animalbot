@@ -87,6 +87,14 @@ async function startBot() {
 
     console.log("🚀 Attempting login...");
 
+    const loginPromise = client.login(process.env.token);
+
+    setTimeout(() => {
+      console.log("⏰ Login timeout reached (10s)");
+    }, 10000);
+
+    await loginPromise;
+
     const result = await client.login(process.env.token);
 
     console.log("✅ Login result:", result);
