@@ -9,12 +9,6 @@ async function loadCommands(client) {
 
   const Files = await loadFiles("commands");
 
-  console.log("Loading commands...");
-
-  for (const file of Files) {
-    console.log(`Loading ${file}`);
-  }
-
   Files.forEach((file) => {
     const command = require(file);
     client.commands.set(command.data.name, command);

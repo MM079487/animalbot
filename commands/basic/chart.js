@@ -93,7 +93,7 @@ module.exports = {
 
         const embed = new EmbedBuilder()
             .setTitle("Chart URL")
-            .setDescription(`https://animalbot-vqm0.onrender.com/chart/`)
+            .setDescription(`https://animalbot-bee2.onrender.com/chart/`)
             .setColor("Green")
 
         await interaction.editReply({ embeds: [embed], files: [attachment] })

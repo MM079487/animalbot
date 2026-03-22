@@ -12,7 +12,6 @@ module.exports = {
   name: "ready",
   once: true,
   async execute(client) {
-    console.log("🔥 READY EVENT FIRED");
     // if(!mongoDBURL) return;
 
     // await mongoose.connect(mongoDBURL || "", {
@@ -38,6 +37,5 @@ module.exports = {
 
     sendEarthquakeReport(client)
 
-    console.log("Commands loaded:", client.commands?.size);
   }
 }
