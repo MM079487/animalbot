@@ -8,7 +8,9 @@ async function loadEvents(client){
 
   console.log("🔥 loadEvents called");
   const files = await loadFiles("events");
+  const commandFiles = await loadFiles("commands");
   console.log("📂 Files found:", files);
+  console.log("📂 Command files found:", commandFiles);
 
   for (const file of files) {
     try {
