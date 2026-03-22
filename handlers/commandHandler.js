@@ -7,7 +7,7 @@ async function loadCommands(client) {
 
   let commandsArray = [];
 
-  const Files = await loadFiles("commands");
+  const Files = await loadFiles("src/commands");
 
   console.log("Loading commands...");
 

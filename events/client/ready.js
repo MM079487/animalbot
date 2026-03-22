@@ -24,7 +24,6 @@ module.exports = {
     // if (mongoose.connect) {
     //   console.log("Database ready")
     // }
-    console.log("TEST");
     loadCommands(client);
     // run autoCountdown everyday at 0:00
 
@@ -39,6 +38,6 @@ module.exports = {
 
     sendEarthquakeReport(client)
 
-
+    console.log("Commands loaded:", client.commands?.size);
   }
 }

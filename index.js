@@ -30,7 +30,7 @@ client.events = new Collection();
 client.commands = new Collection();
 
 
-loadEvents(client);;
+loadEvents(client);
 
 client.on("ready", () => {
 
