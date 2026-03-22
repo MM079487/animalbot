@@ -83,10 +83,21 @@ client.COOLDOWN_SECONDS = 10; // replace with desired cooldown time in seconds
 
 //     command.run(client,interaction, Discord);
 // })
-console.log("🔑 Token exists:", !!process.env.token);
-client.login(process.env.token)
-  .then(() => console.log("✅ Bot logged in successfully"))
-  .catch(err => console.error("❌ Login failed:", err));
+async function startBot() {
+  try {
+    console.log("🔑 Token exists:", !!process.env.token);
+
+    await client.login(process.env.token);
+
+    console.log("✅ Bot logged in successfully");
+  } catch (error) {
+    console.error("❌ Login error:", error);
+  }
+}
+
+startBot();
+
+client.on("debug", console.log);
 
 function refreshWeb(data) {
   let rawdata = fs.readFileSync('./public/index/data.json');
