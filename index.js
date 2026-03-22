@@ -42,10 +42,7 @@ client.on("ready", () => {
   // toTlg(client, Discord)
 })
 
-client.rest.on("rateLimited", (info) => {
-  console.log("⚠️ Rate limit hit!");
-  console.log(info); 
-});
+console.log("DIR:", __dirname);
 
 // async function getPinyin(text) {
 //   const response = await fetch(`https://helloacm.com/api/pinyin/?cached&s=${text}`);

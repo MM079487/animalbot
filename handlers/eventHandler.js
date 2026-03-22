@@ -6,7 +6,9 @@ async function loadEvents(client){
   client.events = new Map();
   const events = new Array();
 
+  console.log("🔥 loadEvents called");
   const files = await loadFiles("events");
+  console.log("📂 Files found:", files);
 
   for (const file of files) {
     try {
