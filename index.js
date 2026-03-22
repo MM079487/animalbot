@@ -95,6 +95,12 @@ async function startBot() {
   }
 }
 
+startBot();
+
+client.on("error", console.error);
+client.on("shardError", console.error);
+client.on("warn", console.warn);
+
 function refreshWeb(data) {
   let rawdata = fs.readFileSync('./public/index/data.json');
   let parsedRecordedData = JSON.parse(rawdata);
