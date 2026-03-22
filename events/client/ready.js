@@ -12,7 +12,7 @@ module.exports = {
   name: "ready",
   once: true,
   async execute(client) {
-
+    console.log("🔥 READY EVENT FIRED");
     // if(!mongoDBURL) return;
 
     // await mongoose.connect(mongoDBURL || "", {
