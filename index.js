@@ -83,7 +83,7 @@ client.COOLDOWN_SECONDS = 10; // replace with desired cooldown time in seconds
 
 //     command.run(client,interaction, Discord);
 // })
-console.log("🔑 Token exists:", !!process.env.TOKEN);
+console.log("🔑 Token exists:", !!process.env.token);
 client.login(process.env.token)
   .then(() => console.log("✅ Bot logged in successfully"))
   .catch(err => console.error("❌ Login failed:", err));
