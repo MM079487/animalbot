@@ -99,6 +99,10 @@ startBot();
 
 client.on("debug", console.log);
 
+client.once("ready", () => {
+  console.log("🔥 DIRECT READY EVENT WORKS");
+});
+
 function refreshWeb(data) {
   let rawdata = fs.readFileSync('./public/index/data.json');
   let parsedRecordedData = JSON.parse(rawdata);
