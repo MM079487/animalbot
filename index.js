@@ -1,6 +1,3 @@
-process.on("uncaughtException", console.error);
-process.on("unhandledRejection", console.error);
-
 const express = require("express")
 const app = express()
 const prefix = "-"
@@ -83,25 +80,20 @@ client.COOLDOWN_SECONDS = 10; // replace with desired cooldown time in seconds
 
 //     command.run(client,interaction, Discord);
 // })
+
 async function startBot() {
   try {
     console.log("🔑 Token exists:", !!process.env.token);
 
-    await client.login(process.env.token);
+    console.log("🚀 Attempting login...");
 
-    console.log("✅ Bot logged in successfully");
+    const result = await client.login(process.env.token);
+
+    console.log("✅ Login result:", result);
   } catch (error) {
     console.error("❌ Login error:", error);
   }
 }
-
-startBot();
-
-client.on("debug", console.log);
-
-client.once("ready", () => {
-  console.log("🔥 DIRECT READY EVENT WORKS");
-});
 
 function refreshWeb(data) {
   let rawdata = fs.readFileSync('./public/index/data.json');
