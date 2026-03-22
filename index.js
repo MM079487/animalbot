@@ -44,7 +44,7 @@ client.on("ready", () => {
 
 client.rest.on("rateLimited", (info) => {
   console.log("⚠️ Rate limit hit!");
-  console.log(info);
+  console.log(info); 
 });
 
 // async function getPinyin(text) {
