@@ -12,12 +12,19 @@ const sendPRNResult = (client) => {
         const tangkak = data.find(seat => seat.seat_id === 'N10');
 
         if (tangkak.last_published_at !== lastSeenTime) {
+            const totalRegistered = tangkak.registered_voters
+            const totalVoted = tangkak.candidates[0].vote + tangkak.candidates[1].vote
+            const percentage = (totalVoted / totalRegistered) * 100
             //send message
             const embed = new EmbedBuilder()
-                .setTitle("[LIVE] N10 Tangkak 非官方结果")
+                .setTitle("[LIVE] N10 Tangkak")
                 .setColor("Random")
                 .setDescription(`
                 地点：[${tangkak.seat_id}] ${tangkak.seat_name}, ${tangkak.state}
+                废票： ${tangkak.rejected_votes}
+                目前总票数：${totalVoted.toLocaleString()} / ${totalRegistered.toLocaleString()}
+                当前投票率：${percentage.toFixed(2)}%
+                官方成绩：${tangkak.official_result == true ? "✅" : "❌"}
                 更新时间: __${new Date(tangkak.last_published_at).toLocaleString()}__
 
                 `)
