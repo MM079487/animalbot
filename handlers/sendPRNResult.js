@@ -6,7 +6,7 @@ require('dotenv').config()
 
 const sendPRNResult = (client) => {
 
-    setInterval(checkAPI, 1000); //update every 30s
+    setInterval(checkAPI, 30000); //update every 30s
     async function checkAPI() {
         const timestamp = Date.now();
         const data = await fetch(`https://data.pru.astroawani.com/data/16/result_state_assembly.json?bust=${timestamp}`).then(r => r.json());
