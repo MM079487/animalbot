@@ -81,7 +81,33 @@ client.COOLDOWN_SECONDS = 10; // replace with desired cooldown time in seconds
 //     command.run(client,interaction, Discord);
 // })
 
-client.login(process.env.token);
+async function startBot() {
+  try {
+    console.log("🔑 Token exists:", !!process.env.token);
+
+    console.log("🚀 Attempting login...");
+
+    const loginPromise = client.login(process.env.token);
+
+    setTimeout(() => {
+      console.log("⏰ Login timeout reached (10s)");
+    }, 10000);
+
+    await loginPromise;
+
+    const result = await client.login(process.env.token);
+
+    console.log("✅ Login result:", result);
+  } catch (error) {
+    console.error("❌ Login error:", error);
+  }
+}
+
+startBot();
+
+client.on("error", console.error);
+client.on("shardError", console.error);
+client.on("warn", console.warn);
 
 function refreshWeb(data) {
   let rawdata = fs.readFileSync('./public/index/data.json');
