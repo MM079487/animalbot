@@ -6,9 +6,10 @@ require('dotenv').config()
 
 const sendPRNResult = (client) => {
 
-    setInterval(checkAPI, 60000); //update every 1 minute
+    setInterval(checkAPI, 1000); //update every 30s
     async function checkAPI() {
-        const data = await fetch("https://data.pru.astroawani.com/data/16/result_state_assembly.json").then(r => r.json());
+        const timestamp = Date.now();
+        const data = await fetch(`https://data.pru.astroawani.com/data/16/result_state_assembly.json?bust=${timestamp}`).then(r => r.json());
         const tangkak = data.find(seat => seat.seat_id === 'N10');
 
         if (tangkak.last_published_at !== lastSeenTime) {
