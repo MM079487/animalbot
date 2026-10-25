@@ -1,6 +1,8 @@
 const { loadCommands } = require("../../handlers/commandHandler");
 const { autoCountdown } = require("../../handlers/autoCountdown");
 const { sendEarthquakeReport } = require("../../handlers/sendEarthquakeReport.js");
+const { sendHazeReport } = require("../../handlers/sendHazeReport.js");
+
 const { postTime } = require("../../server.js")
 const cron = require("node-cron")
 
@@ -37,6 +39,7 @@ module.exports = {
     });
 
     sendEarthquakeReport(client)
+    sendHazeReport(client)
 
     console.log("Commands loaded:", client.commands?.size);
   }
