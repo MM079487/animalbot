@@ -3,6 +3,7 @@ const { createCanvas } = require('canvas');
 const Chart = require('chart.js/auto');
 const fs = require('fs');
 const ChartDataLabels = require('chartjs-plugin-datalabels')
+const { getCounts } = require('../../dailyCounts')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -18,7 +19,7 @@ module.exports = {
             const canvas = createCanvas(width, height);
             const ctx = canvas.getContext('2d');
 
-            let data = JSON.parse(fs.readFileSync("public/msgTrack/dailyMessageCount.json", "utf8"));
+            let data = await getCounts();
 
             const labels = Object.keys(data);
             const dataPoints = Object.values(data);

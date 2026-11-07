@@ -74,8 +74,9 @@ fetch('dailyMessageCount.json')
     })
 
 fetch('/chartData')// remember to change: /chartData
-    .then((response) => response.json())
+    .then((response) => response.status === 200 ? response.json() : null)
     .then(async data => {
+        if (!data) return
         let firstData = data[0]
         let lastData = data[1]
 
