@@ -1,6 +1,7 @@
 const express = require("express")
 require('dotenv').config()
 const dailyCounts = require("./dailyCounts")
+const deletedMessages = require("./deletedMessages")
 
 const app = express()
 let logText = `
@@ -29,6 +30,17 @@ app.get("/chartData", async function (req, res) {
         res.json(data)
     } catch (err) {
         console.error("Error reading first/last message:", err)
+        res.sendStatus(503)
+    }
+});
+
+// Deleted/edited message log straight from MongoDB (before the static folder, so no stale file is served)
+app.get("/data.json", async function (req, res) {
+    try {
+        res.set("Cache-Control", "no-store")
+        res.json(await deletedMessages.getAll())
+    } catch (err) {
+        console.error("Error reading deleted messages:", err)
         res.sendStatus(503)
     }
 });

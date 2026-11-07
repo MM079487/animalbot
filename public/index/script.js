@@ -31,6 +31,7 @@ var interval = setInterval(function() {
       if (!_.isEqual(clientData, json)) { //different with first time data (data updated)
         clientData = json
         let lastElement = clientData[Object.keys(clientData)[Object.keys(clientData).length - 1]]
+        if (!lastElement) return
         if (lastElement.attachment) {
           createAttachmentLogBox(lastElement)
           console.log("added attachment box")

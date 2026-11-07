@@ -5,6 +5,7 @@ const fs = require("fs")
 const path = require("path")
 const logger = require("./messageLogger.js")
 const toTlg = require("./toTlg.js")
+const deletedMessages = require("./deletedMessages.js")
 const { keepAlive, postTime } = require("./server.js")
 const fetch = require("node-fetch")
 require('dotenv').config()
@@ -110,35 +111,11 @@ client.on("shardError", console.error);
 client.on("warn", console.warn);
 
 function refreshWeb(data) {
-  let rawdata = fs.readFileSync('./public/index/data.json');
-  let parsedRecordedData = JSON.parse(rawdata);
-
-  parsedRecordedData[data.time] = data //added new message
-
-  if (Object.keys(parsedRecordedData).length > 30) { //if length > 30 then delete first element
-    let firstKey = Object.keys(parsedRecordedData)[0];
-    delete parsedRecordedData[firstKey];
-  }
-
-  fs.writeFile("./public/index/data.json", JSON.stringify(parsedRecordedData), (err) => {
-    if (err) console.log(error)
-  })
-
-  app.use(express.static(__dirname + '/public/index'));
+  deletedMessages.add(data) //saved to MongoDB (keeps newest 30)
 }
 
 function deleteLast() {
-  let rawdata = fs.readFileSync('./public/index/data.json');
-  let parsedRecordedData = JSON.parse(rawdata);
-
-  let lastKey = Object.keys(parsedRecordedData)[Object.keys(parsedRecordedData).length - 1] //remove last
-  delete parsedRecordedData[lastKey]
-
-  fs.writeFile("./public/index/data.json", JSON.stringify(parsedRecordedData), (err) => {
-    if (err) console.log(err)
-  })
-
-  app.use(express.static(__dirname + '/public/index'));
+  return deletedMessages.deleteLast()
 }
 
 module.exports = { refreshWeb, deleteLast }

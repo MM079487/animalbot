@@ -9,7 +9,7 @@ module.exports = {
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
   async execute(interaction, client){
     await interaction.deferReply()
-    deleteLast()
+    await deleteLast()
     interaction.editReply({ content:"Last recorded message deleted", ephemeral: true})
     postTime(`${interaction.user.username} deleted last recorded message`)
   }
