@@ -85,26 +85,21 @@ client.COOLDOWN_SECONDS = 10; // replace with desired cooldown time in seconds
 async function startBot() {
   try {
     console.log("🔑 Token exists:", !!process.env.token);
-
     console.log("🚀 Attempting login...");
 
-    const loginPromise = client.login(process.env.token);
+    await client.login(process.env.token); // login ONCE (a second login can make every event fire twice)
 
-    setTimeout(() => {
-      console.log("⏰ Login timeout reached (10s)");
-    }, 10000);
-
-    await loginPromise;
-
-    const result = await client.login(process.env.token);
-
-    console.log("✅ Login result:", result);
+    console.log("✅ Logged in");
   } catch (error) {
     console.error("❌ Login error:", error);
   }
 }
 
 startBot();
+
+// one failed command / request must never take the whole bot down
+process.on("unhandledRejection", (err) => console.error("Unhandled rejection:", err));
+process.on("uncaughtException", (err) => console.error("Uncaught exception:", err));
 
 client.on("error", console.error);
 client.on("shardError", console.error);

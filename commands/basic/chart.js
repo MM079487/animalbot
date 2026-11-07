@@ -1,9 +1,10 @@
 const { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, AttachmentBuilder } = require("discord.js")
 const { createCanvas } = require('canvas');
 const Chart = require('chart.js/auto');
-const fs = require('fs');
 const ChartDataLabels = require('chartjs-plugin-datalabels')
 const { getCounts } = require('../../dailyCounts')
+
+Chart.register(ChartDataLabels);
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,93 +12,101 @@ module.exports = {
         .setDescription("Get daily messages chart url"),
     async execute(interaction, client) {
 
-        await interaction.deferReply()
+        try {
+            await interaction.deferReply()
+        } catch (err) {
+            // interaction expired or was already answered – nothing to reply to, don't crash the bot
+            return console.warn("/chart: could not defer reply:", err.code || err.message)
+        }
 
-        async function generateChart() {
-            const width = 1920/2;
-            const height = 1080/2;
-            const canvas = createCanvas(width, height);
-            const ctx = canvas.getContext('2d');
+        try {
+            async function generateChart() {
+                const width = 1920/2;
+                const height = 1080/2;
+                const canvas = createCanvas(width, height);
+                const ctx = canvas.getContext('2d');
 
-            let data = await getCounts();
+                let data = await getCounts();
 
-            const labels = Object.keys(data);
-            const dataPoints = Object.values(data);
+                const labels = Object.keys(data);
+                const dataPoints = Object.values(data);
 
-            Chart.register(ChartDataLabels);
-
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Number of messages',
-                        data: dataPoints,
-                        borderWidth: 5,
-                        borderColor: "red",
-                        tension: 0.4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        datalabels: {
-                            display: true,
-                            color: "white",
-                            font: { size: 15, weight: "bold" },
-                            align: "top",
-                            backgroundColor: "#282b30"
-                        },
-                        title: {
-                            display: true,
-                            text: "Daily Messages Track",
-                            color: "white",
-                            font: {
-                                size: 24
-                            }
-                        },
-                        legend: {
-                            labels: {
-                                color: "white"
-                            }
-                        }
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Number of messages',
+                            data: dataPoints,
+                            borderWidth: 5,
+                            borderColor: "red",
+                            tension: 0.4
+                        }]
                     },
-                    scales: {
-                        x: {
-                            beginAtZero: true,
-                            grid: {
-                                color: "white"
+                    options: {
+                        responsive: true,
+                        animation: false,
+                        plugins: {
+                            datalabels: {
+                                display: true,
+                                color: "white",
+                                font: { size: 15, weight: "bold" },
+                                align: "top",
+                                backgroundColor: "#282b30"
                             },
-                            ticks: {
-                                color: "white"
+                            title: {
+                                display: true,
+                                text: "Daily Messages Track",
+                                color: "white",
+                                font: {
+                                    size: 24
+                                }
+                            },
+                            legend: {
+                                labels: {
+                                    color: "white"
+                                }
                             }
                         },
-                        y: {
-                            beginAtZero: true,
-                            grid: {
-                                color: "white"
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                grid: {
+                                    color: "white"
+                                },
+                                ticks: {
+                                    color: "white"
+                                }
                             },
-                            ticks: {
-                                color: "white"
+                            y: {
+                                beginAtZero: true,
+                                grid: {
+                                    color: "white"
+                                },
+                                ticks: {
+                                    color: "white"
+                                }
                             }
                         }
                     }
-                }
-            });
+                });
 
-            // Save the chart as an image
-            const buffer = canvas.toBuffer('image/png');
-            fs.writeFileSync('chart.png', buffer);
+                // in-memory image (no shared chart.png on disk)
+                return canvas.toBuffer('image/png');
+            }
+
+            const buffer = await generateChart();
+            const attachment = new AttachmentBuilder(buffer, { name: "chart.png" });
+
+            const embed = new EmbedBuilder()
+                .setTitle("Chart URL")
+                .setDescription(`https://animalbot-vqm0.onrender.com/chart/`)
+                .setColor("Green")
+
+            await interaction.editReply({ embeds: [embed], files: [attachment] })
+        } catch (err) {
+            console.error("❌ /chart failed:", err)
+            await interaction.editReply({ content: "Couldn't generate the chart, try again in a moment.", embeds: [], files: [] }).catch(() => {})
         }
-        await generateChart(); // Generate chart image
-        const attachment = new AttachmentBuilder('chart.png'); // Attach image
-
-        const embed = new EmbedBuilder()
-            .setTitle("Chart URL")
-            .setDescription(`https://animalbot-vqm0.onrender.com/chart/`)
-            .setColor("Green")
-
-        await interaction.editReply({ embeds: [embed], files: [attachment] })
-
     }
 }
