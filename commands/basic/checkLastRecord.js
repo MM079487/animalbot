@@ -9,7 +9,7 @@ module.exports = {
 
     const fetch = require("node-fetch")
 
-    fetch('https://animalbot-vqm0.onrender.com/data.json')
+    fetch(`${process.env.WEBSITE_URL}/data.json`)
       .then((response) => response.json())
       .then(async data => {
         try {
@@ -41,7 +41,7 @@ module.exports = {
 
           const embed = new EmbedBuilder()
             .setAuthor({ name: lastRecord.name, iconURL: lastRecord.authorIcon })
-            .setDescription(`\`\`\`${modifiedMsg}\`\`\`\n<t:${Math.floor(lastRecord.time / 1000)}:R> | <t:${Math.floor(lastRecord.time / 1000)}:f> - ${lastRecord.channel} (${lastRecord.guildName})\nhttps://animalbot-vqm0.onrender.com`)
+            .setDescription(`\`\`\`${modifiedMsg}\`\`\`\n<t:${Math.floor(lastRecord.time / 1000)}:R> | <t:${Math.floor(lastRecord.time / 1000)}:f> - ${lastRecord.channel} (${lastRecord.guildName})\n${process.env.WEBSITE_URL}`)
           .setColor(0x2B2D31)
 
           interaction.editReply({ embeds: [embed] })
