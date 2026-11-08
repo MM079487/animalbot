@@ -1,6 +1,7 @@
 const express = require("express")
 require('dotenv').config()
 const dailyCounts = require("./dailyCounts")
+const voiceCounts = require("./voiceCounts")
 const deletedMessages = require("./deletedMessages")
 
 const app = express()
@@ -18,6 +19,16 @@ app.get("/chart/dailyMessageCount.json", async function (req, res) {
         res.json(await dailyCounts.getCounts())
     } catch (err) {
         console.error("Error reading daily counts:", err)
+        res.sendStatus(503)
+    }
+});
+
+app.get("/chart/dailyVoiceCount.json", async function (req, res) {
+    try {
+        res.set("Cache-Control", "no-store")
+        res.json(await voiceCounts.getCounts())
+    } catch (err) {
+        console.error("Error reading daily voice counts:", err)
         res.sendStatus(503)
     }
 });
@@ -61,6 +72,7 @@ function postTime(msg) {
 
 // connect to MongoDB once, then start flushing counted messages to it
 dailyCounts.init()
+voiceCounts.init()
 
 function keepAlive() {
     app.listen(3000, () => { console.log("Server is Ready!") });

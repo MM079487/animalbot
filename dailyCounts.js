@@ -55,7 +55,7 @@ async function init() {
 
     // Render sends SIGTERM when a new deploy replaces this instance – save what's pending first.
     process.on("SIGTERM", async () => {
-        try { await flush(); } finally { process.exit(0); }
+        try { await Promise.all([flush(), require("./voiceCounts").flush()]); } finally { process.exit(0); }
     });
 }
 

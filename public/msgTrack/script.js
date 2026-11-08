@@ -4,25 +4,47 @@ var firstMessageBox = document.getElementById("firstMessage")
 var lastMessageBox = document.getElementById("lastMessage")
 const ctx = document.getElementById('chart');
 
-fetch('dailyMessageCount.json')
-    .then((response) => response.json())
-    .then(async data => {
+// messages + voice joins are fetched together so both lines share the same chart / x-axis
+Promise.all([
+    fetch('dailyMessageCount.json').then((response) => response.json()),
+    // if the voice endpoint fails, the message line should still show
+    fetch('dailyVoiceCount.json').then((response) => response.ok ? response.json() : {}).catch(() => ({}))
+])
+    .then(([messageData, voiceData]) => {
 
-        const labels = Object.keys(data);
-        const dataPoints = Object.values(data);
+        // union of all days, oldest -> newest (labels look like "10/25/2026")
+        const labels = [...new Set([...Object.keys(messageData), ...Object.keys(voiceData)])]
+            .sort((a, b) => new Date(a) - new Date(b));
 
+        const messagePoints = labels.map(day => messageData[day] ?? 0);
+        const voicePoints = labels.map(day => voiceData[day] ?? 0);
 
         new Chart(ctx, {
             type: 'line',
             data: {
                 labels: labels,
-                datasets: [{
-                    label: 'Number of messages',
-                    data: dataPoints,
-                    borderWidth: 5,
-                    borderColor: "red",
-                    tension: 0.4
-                }]
+                datasets: [
+                    {
+                        label: 'Number of messages',
+                        data: messagePoints,
+                        borderWidth: 5,
+                        borderColor: "red",
+                        tension: 0.4,
+                        datalabels: {
+                            align: "top"
+                        }
+                    },
+                    {
+                        label: 'Voice channel joins',
+                        data: voicePoints,
+                        borderWidth: 5,
+                        borderColor: "#00bfff",
+                        tension: 0.4,
+                        datalabels: {
+                            align: "bottom"
+                        }
+                    }
+                ]
             },
             options: {
                 responsive: true,
@@ -37,7 +59,7 @@ fetch('dailyMessageCount.json')
                     },
                     title: {
                         display: true,
-                        text: "Daily Messages Track",
+                        text: "Daily Messages & Voice Joins Track",
                         color: "white",
                         font: {
                             size: 24
