@@ -3,6 +3,7 @@ const { createCanvas } = require('canvas');
 const Chart = require('chart.js/auto');
 const ChartDataLabels = require('chartjs-plugin-datalabels')
 const { getCounts } = require('../../dailyCounts')
+const voiceCounts = require('../../voiceCounts')
 
 Chart.register(ChartDataLabels);
 
@@ -26,22 +27,36 @@ module.exports = {
                 const canvas = createCanvas(width, height);
                 const ctx = canvas.getContext('2d');
 
-                let data = await getCounts();
+                const [data, voiceData] = await Promise.all([getCounts(), voiceCounts.getCounts()]);
 
-                const labels = Object.keys(data);
-                const dataPoints = Object.values(data);
+                // union of all days, oldest -> newest (same logic as the website)
+                const labels = [...new Set([...Object.keys(data), ...Object.keys(voiceData)])]
+                    .sort((a, b) => new Date(a) - new Date(b));
+                const dataPoints = labels.map(day => data[day] ?? 0);
+                const voicePoints = labels.map(day => voiceData[day] ?? 0);
 
                 new Chart(ctx, {
                     type: 'line',
                     data: {
                         labels: labels,
-                        datasets: [{
-                            label: 'Number of messages',
-                            data: dataPoints,
-                            borderWidth: 5,
-                            borderColor: "red",
-                            tension: 0.4
-                        }]
+                        datasets: [
+                            {
+                                label: 'Number of messages',
+                                data: dataPoints,
+                                borderWidth: 5,
+                                borderColor: "red",
+                                tension: 0.4,
+                                datalabels: { align: "top" }
+                            },
+                            {
+                                label: 'Voice channel joins',
+                                data: voicePoints,
+                                borderWidth: 5,
+                                borderColor: "#00bfff",
+                                tension: 0.4,
+                                datalabels: { align: "bottom" }
+                            }
+                        ]
                     },
                     options: {
                         responsive: true,
@@ -56,7 +71,7 @@ module.exports = {
                             },
                             title: {
                                 display: true,
-                                text: "Daily Messages Track",
+                                text: "Daily Messages & Voice Joins Track",
                                 color: "white",
                                 font: {
                                     size: 24
