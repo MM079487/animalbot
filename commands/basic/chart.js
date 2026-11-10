@@ -54,7 +54,7 @@ module.exports = {
                                 borderWidth: 5,
                                 borderColor: "#00bfff",
                                 tension: 0.4,
-                                datalabels: { align: "bottom" }
+                                datalabels: { align: "top" }
                             }
                         ]
                     },

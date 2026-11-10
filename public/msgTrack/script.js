@@ -41,7 +41,7 @@ Promise.all([
                         borderColor: "#00bfff",
                         tension: 0.4,
                         datalabels: {
-                            align: "bottom"
+                            align: "top"
                         }
                     }
                 ]
